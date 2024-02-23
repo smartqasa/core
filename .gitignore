@@ -1,4 +1,5 @@
 /config
+!config/www/smartqasa/light-card/
 config2/*
 
 tests/testing_config/deps
