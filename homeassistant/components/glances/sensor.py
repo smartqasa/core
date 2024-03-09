@@ -1,4 +1,5 @@
 """Support gathering system information of hosts which are running glances."""
+
 from __future__ import annotations
 
 from dataclasses import dataclass
@@ -47,7 +48,6 @@ SENSOR_TYPES = {
         type="fs",
         translation_key="disk_usage",
         native_unit_of_measurement=PERCENTAGE,
-        icon="mdi:harddisk",
         state_class=SensorStateClass.MEASUREMENT,
     ),
     ("fs", "disk_use"): GlancesSensorEntityDescription(
@@ -56,7 +56,6 @@ SENSOR_TYPES = {
         translation_key="disk_used",
         native_unit_of_measurement=UnitOfInformation.GIBIBYTES,
         device_class=SensorDeviceClass.DATA_SIZE,
-        icon="mdi:harddisk",
         state_class=SensorStateClass.MEASUREMENT,
     ),
     ("fs", "disk_free"): GlancesSensorEntityDescription(
@@ -65,7 +64,6 @@ SENSOR_TYPES = {
         translation_key="disk_free",
         native_unit_of_measurement=UnitOfInformation.GIBIBYTES,
         device_class=SensorDeviceClass.DATA_SIZE,
-        icon="mdi:harddisk",
         state_class=SensorStateClass.MEASUREMENT,
     ),
     ("mem", "memory_use_percent"): GlancesSensorEntityDescription(
@@ -73,16 +71,14 @@ SENSOR_TYPES = {
         type="mem",
         translation_key="memory_usage",
         native_unit_of_measurement=PERCENTAGE,
-        icon="mdi:memory",
         state_class=SensorStateClass.MEASUREMENT,
     ),
     ("mem", "memory_use"): GlancesSensorEntityDescription(
         key="memory_use",
         type="mem",
-        translation_key="memory_used",
+        translation_key="memory_use",
         native_unit_of_measurement=UnitOfInformation.MEBIBYTES,
         device_class=SensorDeviceClass.DATA_SIZE,
-        icon="mdi:memory",
         state_class=SensorStateClass.MEASUREMENT,
     ),
     ("mem", "memory_free"): GlancesSensorEntityDescription(
@@ -91,7 +87,6 @@ SENSOR_TYPES = {
         translation_key="memory_free",
         native_unit_of_measurement=UnitOfInformation.MEBIBYTES,
         device_class=SensorDeviceClass.DATA_SIZE,
-        icon="mdi:memory",
         state_class=SensorStateClass.MEASUREMENT,
     ),
     ("memswap", "swap_use_percent"): GlancesSensorEntityDescription(
@@ -99,16 +94,14 @@ SENSOR_TYPES = {
         type="memswap",
         translation_key="swap_usage",
         native_unit_of_measurement=PERCENTAGE,
-        icon="mdi:memory",
         state_class=SensorStateClass.MEASUREMENT,
     ),
     ("memswap", "swap_use"): GlancesSensorEntityDescription(
         key="swap_use",
         type="memswap",
-        translation_key="swap_used",
+        translation_key="swap_use",
         native_unit_of_measurement=UnitOfInformation.GIBIBYTES,
         device_class=SensorDeviceClass.DATA_SIZE,
-        icon="mdi:memory",
         state_class=SensorStateClass.MEASUREMENT,
     ),
     ("memswap", "swap_free"): GlancesSensorEntityDescription(
@@ -117,7 +110,6 @@ SENSOR_TYPES = {
         translation_key="swap_free",
         native_unit_of_measurement=UnitOfInformation.GIBIBYTES,
         device_class=SensorDeviceClass.DATA_SIZE,
-        icon="mdi:memory",
         state_class=SensorStateClass.MEASUREMENT,
     ),
     ("load", "processor_load"): GlancesSensorEntityDescription(
@@ -184,7 +176,6 @@ SENSOR_TYPES = {
         type="sensors",
         translation_key="fan_speed",
         native_unit_of_measurement=REVOLUTIONS_PER_MINUTE,
-        icon="mdi:fan",
         state_class=SensorStateClass.MEASUREMENT,
     ),
     ("sensors", "battery"): GlancesSensorEntityDescription(
@@ -193,14 +184,12 @@ SENSOR_TYPES = {
         translation_key="charge",
         native_unit_of_measurement=PERCENTAGE,
         device_class=SensorDeviceClass.BATTERY,
-        icon="mdi:battery",
         state_class=SensorStateClass.MEASUREMENT,
     ),
     ("docker", "docker_active"): GlancesSensorEntityDescription(
         key="docker_active",
         type="docker",
         translation_key="container_active",
-        icon="mdi:docker",
         state_class=SensorStateClass.MEASUREMENT,
     ),
     ("docker", "docker_cpu_use"): GlancesSensorEntityDescription(
@@ -208,7 +197,6 @@ SENSOR_TYPES = {
         type="docker",
         translation_key="container_cpu_usage",
         native_unit_of_measurement=PERCENTAGE,
-        icon="mdi:docker",
         state_class=SensorStateClass.MEASUREMENT,
     ),
     ("docker", "docker_memory_use"): GlancesSensorEntityDescription(
@@ -217,21 +205,18 @@ SENSOR_TYPES = {
         translation_key="container_memory_used",
         native_unit_of_measurement=UnitOfInformation.MEBIBYTES,
         device_class=SensorDeviceClass.DATA_SIZE,
-        icon="mdi:docker",
         state_class=SensorStateClass.MEASUREMENT,
     ),
     ("raid", "available"): GlancesSensorEntityDescription(
         key="available",
         type="raid",
         translation_key="raid_available",
-        icon="mdi:harddisk",
         state_class=SensorStateClass.MEASUREMENT,
     ),
     ("raid", "used"): GlancesSensorEntityDescription(
         key="used",
         type="raid",
         translation_key="raid_used",
-        icon="mdi:harddisk",
         state_class=SensorStateClass.MEASUREMENT,
     ),
 }
