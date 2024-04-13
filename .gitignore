@@ -1,5 +1,5 @@
 /config
-!config/www/smartqasa/light-card/
+!config/www/smartqasa/smartqasa-dash/
 config2/*
 
 tests/testing_config/deps
