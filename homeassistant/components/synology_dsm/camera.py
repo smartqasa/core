@@ -36,7 +36,7 @@ from .models import SynologyDSMData
 _LOGGER = logging.getLogger(__name__)
 
 
-@dataclass(frozen=True)
+@dataclass(frozen=True, kw_only=True)
 class SynologyDSMCameraEntityDescription(
     CameraEntityDescription, SynologyDSMEntityDescription
 ):
@@ -108,7 +108,7 @@ class SynoDSMCamera(SynologyDSMBaseEntity[SynologyDSMCameraUpdateCoordinator], C
     @property
     def available(self) -> bool:
         """Return the availability of the camera."""
-        return self.camera_data.is_enabled and self.coordinator.last_update_success
+        return self.camera_data.is_enabled and super().available
 
     @property
     def is_recording(self) -> bool:
