@@ -1,7 +1,6 @@
 """Tests for home_connect sensor entities."""
 
-from collections.abc import Awaitable, Callable, Generator
-from typing import Any
+from collections.abc import Awaitable, Callable
 from unittest.mock import MagicMock, Mock
 
 from freezegun.api import FrozenDateTimeFactory
@@ -69,9 +68,8 @@ def platforms() -> list[str]:
     return [Platform.SENSOR]
 
 
+@pytest.mark.usefixtures("bypass_throttle")
 async def test_sensors(
-    bypass_throttle: Generator[None, Any, None],
-    hass: HomeAssistant,
     config_entry: MockConfigEntry,
     integration_setup: Callable[[], Awaitable[bool]],
     setup_credentials: None,
@@ -123,14 +121,20 @@ ENTITY_ID_STATES = {
 @pytest.mark.parametrize("appliance", [TEST_HC_APP], indirect=True)
 @pytest.mark.parametrize(
     ("states", "event_run"),
-    list(zip(list(zip(*ENTITY_ID_STATES.values())), PROGRAM_SEQUENCE_EVENTS)),
+    list(
+        zip(
+            list(zip(*ENTITY_ID_STATES.values(), strict=False)),
+            PROGRAM_SEQUENCE_EVENTS,
+            strict=False,
+        )
+    ),
 )
+@pytest.mark.usefixtures("bypass_throttle")
 async def test_event_sensors(
     appliance: Mock,
     states: tuple,
     event_run: dict,
     freezer: FrozenDateTimeFactory,
-    bypass_throttle: Generator[None, Any, None],
     hass: HomeAssistant,
     config_entry: MockConfigEntry,
     integration_setup: Callable[[], Awaitable[bool]],
@@ -150,7 +154,7 @@ async def test_event_sensors(
     assert config_entry.state == ConfigEntryState.LOADED
 
     appliance.status.update(event_run)
-    for entity_id, state in zip(entity_ids, states):
+    for entity_id, state in zip(entity_ids, states, strict=False):
         await async_update_entity(hass, entity_id)
         await hass.async_block_till_done()
         assert hass.states.is_state(entity_id, state)
@@ -174,10 +178,10 @@ ENTITY_ID_EDGE_CASE_STATES = [
 
 
 @pytest.mark.parametrize("appliance", [TEST_HC_APP], indirect=True)
+@pytest.mark.usefixtures("bypass_throttle")
 async def test_remaining_prog_time_edge_cases(
     appliance: Mock,
     freezer: FrozenDateTimeFactory,
-    bypass_throttle: Generator[None, Any, None],
     hass: HomeAssistant,
     config_entry: MockConfigEntry,
     integration_setup: Callable[[], Awaitable[bool]],
@@ -197,7 +201,7 @@ async def test_remaining_prog_time_edge_cases(
     for (
         event,
         expected_state,
-    ) in zip(PROGRAM_SEQUENCE_EDGE_CASE, ENTITY_ID_EDGE_CASE_STATES):
+    ) in zip(PROGRAM_SEQUENCE_EDGE_CASE, ENTITY_ID_EDGE_CASE_STATES, strict=False):
         appliance.status.update(event)
         await async_update_entity(hass, entity_id)
         await hass.async_block_till_done()
